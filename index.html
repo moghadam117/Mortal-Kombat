@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JavaScript Keyboard Events: Key/Code</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+  </head>
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Document</title>
+    </head>
+    <body></body>
+  </html>
+  <body id="press-key">
+    <div class="instructions">
+      <h1>Instructions</h1>
+      <hr />
+      <p>Left and Right Arrow keys to move left or right</p>
+      <p>Press Up Arrow to jump</p>
+      <p>Press Dwon Arrow to sit</p>
+      <p>Press 'a' to punch</p>
+      <p>Press 'd' to kick</p>
+    </div>
+    <div id="image-wrapper">
+      <img class="test" src="img/scorpion-default.gif" />
+    </div>
+    <script>
+      let count = 0;
+      let map = [];
+      let imageChanger = document.querySelector("#image-wrapper");
+      let getInfo = document.getElementById("press-key");
+      getInfo.addEventListener("keydown", (event) => {
+        map[event.keyCode] = event.type == "keydown";
+        if (map[71] && map[70]) {
+          // CTRL+SHIFT+A
+          imageChanger.innerHTML = '<img src="img/sub-zero.gif">';
+          // console.log(map[70]);
+          map = [];
+        }
+        switch (event.keyCode) {
+          // case 37:
+
+          // imageChanger.innerHTML = '<img src="img/sub-zero.gif">';
+
+          // break;
+
+          case 65:
+            imageChanger.innerHTML = '<img src="img/scorpion-kick.gif">';
+            break;
+
+          case 68:
+            imageChanger.innerHTML = '<img src="img/scorpion-punch.gif">';
+            break;
+
+          case 38:
+            imageChanger.innerHTML = '<img src="img/scorpion-jump.gif">';
+
+            break;
+
+          case 40:
+            imageChanger.innerHTML = '<img src="img/scorpion-sit.gif">';
+            break;
+
+          case 37:
+            imageChanger.style.left = count + "px";
+            leftArrowPressed();
+            break;
+
+          case 39:
+            imageChanger.style.left = count + "px";
+            rightArrowPressed();
+            break;
+
+          case 32:
+            imageChanger.classList.add("jump");
+            setTimeout(() => {
+              imageChanger.classList.remove("jump");
+            }, 500);
+        }
+
+        function rightArrowPressed() {
+          count = count + 5;
+          // imageChanger.style.left = count + 'px';
+        }
+        function leftArrowPressed() {
+          count = count - 5;
+          // imageChanger.style.left = count + 'px';
+        }
+        function upArrowPressed() {
+          let counter = 180;
+          imageChanger.style.top = counter + "px";
+        }
+      });
+      getInfo.addEventListener("keyup", (event) => {
+        imageChanger.innerHTML = '<img src="img/scorpion-default.gif">';
+        imageChanger.style.top = "280px";
+        map = [];
+      });
+    </script>
+  </body>
+</html>
